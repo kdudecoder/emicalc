@@ -80,7 +80,7 @@
 			<div class="text-white mb-4">
 				<p class="font-bold text-xl">EMI</p>
 				<p class="text-3xl font-black text-green-400"><span class="font-medium">₹</span> {{ emi }} <span class="text-base">per month</span></p>
-				<p class="text-sm text-white">for 12 months</p>
+				<p class="text-sm text-white">for {{ tenure_in_months }} <span v-if="tenure_in_months == 1">month</span><span v-else>months</span></p>
 			</div>
 			<div class="text-white">
 				<p class="font-bold text-xl">Total Interest Paid</p>
@@ -145,7 +145,8 @@
 			interest: 12,
 			tenure: 1,
 			emi: undefined,
-			total_interest: undefined
+			total_interest: undefined,
+			tenure_in_months: undefined
 		},
 		created: function () {
 			this.calculateEMI();
@@ -159,22 +160,37 @@
 			},
 			interest: function(val) {
 				this.calculateEMI();
+			},
+			tenure_type: function(val) {
+				this.calculateEMI();	
+			},
+			interest_type: function(val) {
+				this.calculateEMI();
 			}
 		},
 		methods: {
 			calculateEMI() {
-				interest = this.interest/1200;
-				let term = this.tenure*12;
-				let top = Math.pow((1+interest),term).toFixed(2);
-				let bottom = top - 1;
-				let ratio = top/bottom;
-				let principal = (this.loan_amount/term).toFixed(2);
-
-				this.emi = (this.loan_amount * interest * ratio).toFixed(2);
-				this.total_interest = ((this.emi - principal)*term).toFixed(2);
+				if(this.tenure_type == 2) {
+					term = this.tenure*12;
+				}
+				else {
+					term = this.tenure;
+				}
+				this.tenure_in_months = term;
+				if(this.interest_type == 1) {
+					interest = this.interest/1200;
+					let top = Math.pow((1+interest),term);
+					let bottom = top - 1;
+					let ratio = top/bottom;
+					let principal = (this.loan_amount/term).toFixed(2);
+					this.emi = (this.loan_amount * interest * ratio).toFixed(2);
+					this.total_interest = ((this.emi - principal)*term).toFixed(2);
+				} else {
+					this.total_interest = (this.loan_amount * this.interest/1200 * term).toFixed(2);
+					this.emi = ((parseFloat(this.loan_amount) + parseFloat(this.total_interest))/term).toFixed(2);
+				}
 			}
 		}
-
 	})
 	</script>
 	</body>
