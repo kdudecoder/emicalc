@@ -4,98 +4,99 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <head>
 	<link rel="stylesheet" type="text/css" href="./build/main.css">	
+
 	<style type="text/css">
 
-	[v-cloak] {
-		display: none;
-	}
-	
-	.range-slider {
-		width: 100%;
-	}
+		[v-cloak] {
+			display: none;
+		}
 
-	.range-slider__range {
-		-webkit-appearance: none;
-		width: 100%;
-		height: 10px;
-		border-radius: 5px;
-		background: #d7dcdf;
-		outline: none;
-		padding: 0;
-		margin: 0;
-	}
-	.range-slider__range::-webkit-slider-thumb {
-		-webkit-appearance: none;
-		appearance: none;
-		width: 24px;
-		height: 24px;
-		border-radius: 50%;
-		background: #4a5568;
-		cursor: pointer;
-		-webkit-transition: background .15s ease-in-out;
-		transition: background .15s ease-in-out;
-	}
-	.range-slider__range::-webkit-slider-thumb:hover {
-		background: #68d391;
-	}
-	.range-slider__range:active::-webkit-slider-thumb {
-		background: #68d391;
-	}
-	.range-slider__range::-moz-range-thumb {
-		width: 24px;
-		height: 24px;
-		border: 0;
-		border-radius: 50%;
-		background: #4a5568;
-		cursor: pointer;
-		-moz-transition: background .15s ease-in-out;
-		transition: background .15s ease-in-out;
-	}
-	.range-slider__range::-moz-range-thumb:hover {
-		background: #68d391;
-	}
-	.range-slider__range:active::-moz-range-thumb {
-		background: #68d391;
-	}
-	.range-slider__range:focus::-webkit-slider-thumb {
-		box-shadow: 0 0 0 3px #fff, 0 0 0 6px #68d391;
-	}
+		.range-slider {
+			width: 100%;
+		}
 
-	::-moz-range-track {
-		background: #d7dcdf;
-		border: 0;
-	}
+		.range-slider__range {
+			-webkit-appearance: none;
+			width: 100%;
+			height: 10px;
+			border-radius: 5px;
+			background: #d7dcdf;
+			outline: none;
+			padding: 0;
+			margin: 0;
+		}
+		.range-slider__range::-webkit-slider-thumb {
+			-webkit-appearance: none;
+			appearance: none;
+			width: 24px;
+			height: 24px;
+			border-radius: 50%;
+			background: #4a5568;
+			cursor: pointer;
+			-webkit-transition: background .15s ease-in-out;
+			transition: background .15s ease-in-out;
+		}
+		.range-slider__range::-webkit-slider-thumb:hover {
+			background: #68d391;
+		}
+		.range-slider__range:active::-webkit-slider-thumb {
+			background: #68d391;
+		}
+		.range-slider__range::-moz-range-thumb {
+			width: 24px;
+			height: 24px;
+			border: 0;
+			border-radius: 50%;
+			background: #4a5568;
+			cursor: pointer;
+			-moz-transition: background .15s ease-in-out;
+			transition: background .15s ease-in-out;
+		}
+		.range-slider__range::-moz-range-thumb:hover {
+			background: #68d391;
+		}
+		.range-slider__range:active::-moz-range-thumb {
+			background: #68d391;
+		}
+		.range-slider__range:focus::-webkit-slider-thumb {
+			box-shadow: 0 0 0 3px #fff, 0 0 0 6px #68d391;
+		}
 
-	input::-moz-focus-inner,
-	input::-moz-focus-outer {
-		border: 0;
-	}
+		::-moz-range-track {
+			background: #d7dcdf;
+			border: 0;
+		}
 
-	.active {
-		background: #4a5568;	
-		color: #fff;	
-	}
+		input::-moz-focus-inner,
+		input::-moz-focus-outer {
+			border: 0;
+		}
 
-	/* Chrome, Safari, Edge, Opera */
-	input::-webkit-outer-spin-button,
-	input::-webkit-inner-spin-button {
-		-webkit-appearance: none;
-		margin: 0;
-	}
+		.active {
+			background: #4a5568;	
+			color: #fff;	
+		}
 
-	/* Firefox */
-	input[type=number] {
-		-moz-appearance: textfield;
-	}
+		/* Chrome, Safari, Edge, Opera */
+		input::-webkit-outer-spin-button,
+		input::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
+
+		/* Firefox */
+		input[type=number] {
+			-moz-appearance: textfield;
+		}
 	</style>
 </head>
 <body class="font-sans">
 	<div class="bg-gray-900 min-h-screen" id="emicalc">
 		<div class="inset-x-0 top-0 p-4">
 			<div class="text-white mb-4">
-				<p class="font-bold text-xl">EMI</p>
-				<p class="text-3xl font-black text-green-400" v-cloak><span class="font-medium">₹</span> {{ emi | formatNumber }} <span class="text-base">per month</span></p>
-				<p class="text-sm text-white">for {{ tenure_in_months }} <span v-if="tenure_in_months == 1">month</span><span v-else>months</span></p>
+				<p class="font-bold text-xl" v-if="tenure_type!=3">EMI</p><p class="font-bold text-xl" v-else>EDI</p>
+				<p class="text-3xl font-black text-green-400" v-cloak><span class="font-medium">₹</span> {{ emi | formatNumber }} <span class="text-base" v-if="tenure_type!=3">per month</span><span class="text-base" v-else>per day</span></p>
+				<p class="text-sm text-white" v-if="tenure_type!=3">for {{ tenure_in_months }} <span v-if="tenure_in_months == 1">month</span><span v-else>months</span></p><p class="text-sm text-white" v-else>for {{ tenure_in_months }} <span v-if="tenure_in_months == 1">day</span><span v-else>days</span></p>
 			</div>
 			<div class="text-white">
 				<p class="font-bold text-xl">Total Interest that you'll pay</p>
@@ -104,7 +105,7 @@
 		</div>
 		<div class="inset-x-0 bottom-0 max-w-md w-full px-4 pb-4">			
 			<div class="bg-gray-200 rounded shadow py-4 px-2 mb-4">
-				<p class="text-center uppercase text-xs font-semibold">Loan Amount</p>
+				<p class="text-center uppercase text-xs font-black text-gray-800">Loan Amount</p>
 				<input type="number" name="" class="form-input bg-transparent w-full border-transparent text-2xl font-bold text-center" v-model="loan_amount">
 				<div class="range-slider px-2">
 					<input id="loan_amount" :step="loan_range_step" class="range-slider__range" type="range"  v-bind:min="min" v-bind:max="max" v-model="loan_amount">
@@ -119,18 +120,22 @@
 			</div>
 			<div class="grid grid-cols-2 gap-4">
 				<div class="col-span-1 bg-gray-200 rounded shadow py-4 px-2">
-					<p class="text-center uppercase text-xs font-semibold">Tenure</p>
-					<input type="number" name="" class="form-input bg-transparent w-full border-transparent text-2xl font-bold text-center" v-model="tenure">
+					<p class="text-center uppercase text-xs font-black text-gray-800">Tenure</p>
+					<div class="flex items-center justify-center">
+						<input type="number" name="" class="w-20 form-input bg-transparent border-transparent text-2xl font-bold text-center" v-model="tenure">
+						<!-- <div class="px-4 text-sm">{{ (tenure_type==1)?'month(s)':(tenure_type == 2)?'year(s)':'day(s)' }}</div> -->
+					</div>				
 					<div class="range-slider px-2">
 						<input id="tenure" class="range-slider__range" type="range" value="1" min="1" v-bind:max="max_tenure" v-model="tenure">
 					</div>
-					<div class="flex items-center text-xs mt-4">					
-						<div class="w-3/5 bg-gray-300 text-center p-2 rounded shadow cursor-pointer" @click="tenure_type=1;max_tenure=360" :class="{active:tenure_type==1}">Month</div>
-						<div class="w-2/5 ml-2 bg-gray-300 text-center p-2 rounded shadow cursor-pointer"  @click="tenure_type=2;max_tenure=30" :class="{active:tenure_type==2}">Year</div>					
+					<div class="flex justify-center items-center text-xs mt-4">					
+						<div class="w-1/3 bg-gray-300 text-center px-3 py-2 rounded shadow cursor-pointer" @click="tenure=1;tenure_type=3;max_tenure=90" :class="{active:tenure_type==3}">D</div>
+						<div class="w-1/3 ml-2 bg-gray-300 text-center px-3 py-2 rounded shadow cursor-pointer" @click="tenure=1;tenure_type=1;max_tenure=360" :class="{active:tenure_type==1}">M</div>
+						<div class="w-1/3 ml-2 bg-gray-300 text-center px-3 py-2 rounded shadow cursor-pointer"  @click="tenure=1;tenure_type=2;max_tenure=30" :class="{active:tenure_type==2}">Y</div>					
 					</div>
 				</div>
 				<div class="col-span-1 bg-gray-200 rounded shadow py-4 px-2">
-					<p class="text-center uppercase text-xs font-semibold">Interest</p>
+					<p class="text-center uppercase text-xs font-black text-gray-800">Interest</p>
 					<div class="flex items-center justify-center">
 						<input type="number" step="0.01" name="" class="w-20 form-input bg-transparent border-transparent text-2xl font-bold text-center cursor-pointer px-0" v-model="interest"><p class="-ml-2">% p.a</p>
 					</div>
@@ -150,60 +155,35 @@
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 	<script src="https://unpkg.com/vue-cookies@1.7.3/vue-cookies.js"></script>
-		
-	<script type="text/javascript">
-	
-	numeral.register('locale', 'in', {
-		delimiters: {
-			thousands: ',',
-			decimal: '.'
-		},
-		abbreviations: {
-			thousand: 'k',
-			million: 'm',
-			billion: 'b',
-			trillion: 't'
-		},
-		ordinal: function (number) {
-			var b = number % 10;
-			return (~~ (number % 100 / 10) === 1) ? 'th' :
-			(b === 1) ? 'st' :
-			(b === 2) ? 'nd' :
-			(b === 3) ? 'rd' : 'th';
-		},
-		currency: {
-			symbol: '₹'
-		}
-	});
 
-	numeral.locale('in');
+	<script type="text/javascript">		
 
-	Vue.filter("formatNumber", function (value) {
-		return numeral(value).format("0,00,000"); 
-	});
+		Vue.filter("formatNumber", function (value) {
+			return numeral(value).format("0,00,000.00"); 
+		});
 
-	new Vue({
-		el: '#emicalc',
-		data: {
-			loan_amount: this.$cookies.isKey('loan_amount')?this.$cookies.get('loan_amount'):100000,
-			loan_range_step:this.$cookies.isKey('loan_range_step')?this.$cookies.get('loan_range_step'):100000,
-			loan_input: 'text',
-			min: 100000,
-			max: 1000000,
-			tenure_type: this.$cookies.isKey('tenure_type')?this.$cookies.get('tenure_type'):2,
-			max_tenure: (this.tenure_type == 1)?360:30,
-			interest_type: this.$cookies.isKey('interest_type')?this.$cookies.get('interest_type'):1,
-			interest: this.$cookies.isKey('interest')?this.$cookies.get('interest'):12,
-			tenure: this.$cookies.isKey('tenure')?this.$cookies.get('tenure'):1,
-			emi: undefined,
-			total_interest: undefined,
-			tenure_in_months: undefined
-		},
-		created: function () {
-			this.calculateEMI();
-		},
-		watch: {
-			loan_amount: function (val) {
+		new Vue({
+			el: '#emicalc',
+			data: {
+				loan_amount: this.$cookies.isKey('loan_amount')?this.$cookies.get('loan_amount'):100000,
+				loan_range_step:this.$cookies.isKey('loan_range_step')?this.$cookies.get('loan_range_step'):100000,
+				loan_input: 'text',
+				min: 100000,
+				max: 1000000,
+				tenure_type: this.$cookies.isKey('tenure_type')?this.$cookies.get('tenure_type'):2,
+				max_tenure: (this.tenure_type == 1)?360:30,
+				interest_type: this.$cookies.isKey('interest_type')?this.$cookies.get('interest_type'):1,
+				interest: this.$cookies.isKey('interest')?this.$cookies.get('interest'):12,
+				tenure: this.$cookies.isKey('tenure')?this.$cookies.get('tenure'):1,
+				emi: undefined,
+				total_interest: undefined,
+				tenure_in_months: undefined
+			},
+			created: function () {
+				this.calculateEMI();
+			},
+			watch: {
+				loan_amount: function (val) {
 				//this.loan_amount = this.$options.filters.formatNumber(val);
 				this.calculateEMI();
 				this.$cookies.set('loan_amount', val);
@@ -230,28 +210,37 @@
 		},
 		methods: {
 			calculateEMI() {
-				if(this.tenure_type == 2) {
-					term = this.tenure*12;
-				}
-				else {
-					term = this.tenure;
-				}
-				this.tenure_in_months = term;
-				if(this.interest_type == 1) {
-					interest = this.interest/1200;
-					let top = Math.pow((1+interest),term);
-					let bottom = top - 1;
-					let ratio = top/bottom;
-					let principal = (this.loan_amount/term).toFixed(2);
-					this.emi = (this.loan_amount * interest * ratio).toFixed(2);
-					this.total_interest = ((this.emi - principal)*term).toFixed(2);
-				} else {
-					this.total_interest = (this.loan_amount * this.interest/1200 * term).toFixed(2);
-					this.emi = ((parseFloat(this.loan_amount) + parseFloat(this.total_interest))/term).toFixed(2);
-				}
+				
+					if(this.tenure_type == 2) {
+						term = this.tenure*12;
+					}
+					else {
+						term = this.tenure;
+					}
+					this.tenure_in_months = term;
+					if(this.interest_type == 1) {
+						if(this.tenure_type == 3)
+							interest = this.interest/36500;
+						else
+							interest = this.interest/1200;
+						let top = Math.pow((1+interest),term);
+						let bottom = top - 1;
+						let ratio = top/bottom;
+						let principal = (this.loan_amount/term).toFixed(2);
+						this.emi = (this.loan_amount * interest * ratio).toFixed(2);
+						this.total_interest = ((this.emi - principal)*term).toFixed(2);
+					} else {
+						if(this.tenure_type == 3)
+							this.total_interest = (this.loan_amount * this.interest/36500 * term).toFixed(2);
+						else
+							this.total_interest = (this.loan_amount * this.interest/1200 * term).toFixed(2);
+
+						this.emi = ((parseFloat(this.loan_amount) + parseFloat(this.total_interest))/term).toFixed(2);
+					}
+				
 			}
 		}
 	})
-	</script>
-	</body>
-	</html>
+</script>
+</body>
+</html>
