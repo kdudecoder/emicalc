@@ -83,13 +83,13 @@
 				<p class="text-sm text-white">for {{ tenure_in_months }} <span v-if="tenure_in_months == 1">month</span><span v-else>months</span></p>
 			</div>
 			<div class="text-white">
-				<p class="font-bold text-xl">Total Interest Paid</p>
+				<p class="font-bold text-xl">Total Interest that you'll pay</p>
 				<p class="text-3xl font-black text-green-400"><span class="font-medium">₹</span> {{ total_interest }}</p>
 			</div>
 		</div>
 		<div class="inset-x-0 bottom-0 max-w-md w-full px-4 pb-4">			
 			<div class="bg-gray-200 rounded shadow py-4 px-2 mb-4">
-				<p class="text-center uppercase">Loan Amount</p>
+				<p class="text-center uppercase text-xs font-semibold">Loan Amount</p>
 				<input type="number" name="" class="form-input bg-transparent w-full border-transparent text-2xl font-bold text-center" v-model="loan_amount">
 				<div class="range-slider px-2">
 					<input id="loan_amount" :step="loan_range_step" class="range-slider__range" type="range"  v-bind:min="min" v-bind:max="max" v-model="loan_amount">
@@ -103,7 +103,7 @@
 			</div>
 			<div class="grid grid-cols-2 gap-4">
 				<div class="col-span-1 bg-gray-200 rounded shadow py-4 px-2">
-					<p class="text-center uppercase">Tenure</p>
+					<p class="text-center uppercase text-xs font-semibold">Tenure</p>
 					<input type="number" name="" class="form-input bg-transparent w-full border-transparent text-2xl font-bold text-center" v-model="tenure">
 					<div class="range-slider px-2">
 						<input id="tenure" class="range-slider__range" type="range" value="1" min="1" max="100" v-model="tenure">
@@ -114,9 +114,9 @@
 					</div>
 				</div>
 				<div class="col-span-1 bg-gray-200 rounded shadow py-4 px-2">
-					<p class="text-center uppercase">Interest</p>
+					<p class="text-center uppercase text-xs font-semibold">Interest</p>
 					<div class="flex items-center justify-center">
-						<input type="text" name="" class="w-20 form-input bg-transparent border-transparent text-2xl font-bold text-center cursor-pointer" v-model="interest"><p class="-ml-2">% p.a</p>
+						<input type="number" name="" class="w-20 form-input bg-transparent border-transparent text-2xl font-bold text-center cursor-pointer px-0" v-model="interest"><p class="-ml-2">% p.a</p>
 					</div>
 					<div class="range-slider px-2">
 						<input id="interest" class="range-slider__range" type="range" value="12" min="1" max="365" v-model="interest">
