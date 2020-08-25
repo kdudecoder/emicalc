@@ -122,11 +122,11 @@
 					<p class="text-center uppercase text-xs font-semibold">Tenure</p>
 					<input type="number" name="" class="form-input bg-transparent w-full border-transparent text-2xl font-bold text-center" v-model="tenure">
 					<div class="range-slider px-2">
-						<input id="tenure" class="range-slider__range" type="range" value="1" min="1" max="100" v-model="tenure">
+						<input id="tenure" class="range-slider__range" type="range" value="1" min="1" v-bind:max="max_tenure" v-model="tenure">
 					</div>
 					<div class="flex items-center text-xs mt-4">					
-						<div class="w-3/5 bg-gray-300 text-center p-2 rounded shadow cursor-pointer" @click="tenure_type=1" :class="{active:tenure_type==1}">Month</div>
-						<div class="w-2/5 ml-2 bg-gray-300 text-center p-2 rounded shadow cursor-pointer"  @click="tenure_type=2" :class="{active:tenure_type==2}">Year</div>					
+						<div class="w-3/5 bg-gray-300 text-center p-2 rounded shadow cursor-pointer" @click="tenure_type=1;max_tenure=360" :class="{active:tenure_type==1}">Month</div>
+						<div class="w-2/5 ml-2 bg-gray-300 text-center p-2 rounded shadow cursor-pointer"  @click="tenure_type=2;max_tenure=30" :class="{active:tenure_type==2}">Year</div>					
 					</div>
 				</div>
 				<div class="col-span-1 bg-gray-200 rounded shadow py-4 px-2">
@@ -149,6 +149,7 @@
 
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+	<script src="https://unpkg.com/vue-cookies@1.7.3/vue-cookies.js"></script>
 		
 	<script type="text/javascript">
 	
@@ -184,15 +185,16 @@
 	new Vue({
 		el: '#emicalc',
 		data: {
-			loan_amount: 100000,
-			loan_range_step:100000,
+			loan_amount: this.$cookies.isKey('loan_amount')?this.$cookies.get('loan_amount'):100000,
+			loan_range_step:this.$cookies.isKey('loan_range_step')?this.$cookies.get('loan_range_step'):100000,
 			loan_input: 'text',
 			min: 100000,
 			max: 1000000,
-			tenure_type: 2,
-			interest_type: 1,
-			interest: 12,
-			tenure: 1,
+			tenure_type: this.$cookies.isKey('tenure_type')?this.$cookies.get('tenure_type'):2,
+			max_tenure: (this.tenure_type == 1)?360:30,
+			interest_type: this.$cookies.isKey('interest_type')?this.$cookies.get('interest_type'):1,
+			interest: this.$cookies.isKey('interest')?this.$cookies.get('interest'):12,
+			tenure: this.$cookies.isKey('tenure')?this.$cookies.get('tenure'):1,
 			emi: undefined,
 			total_interest: undefined,
 			tenure_in_months: undefined
@@ -204,18 +206,26 @@
 			loan_amount: function (val) {
 				//this.loan_amount = this.$options.filters.formatNumber(val);
 				this.calculateEMI();
+				this.$cookies.set('loan_amount', val);
 			},
 			tenure: function (val) {
 				this.calculateEMI();
+				this.$cookies.set('tenure', val);
 			},
 			interest: function(val) {
 				this.calculateEMI();
+				this.$cookies.set('interest', val);
 			},
 			tenure_type: function(val) {
 				this.calculateEMI();	
+				this.$cookies.set('tenure_type', val);
 			},
 			interest_type: function(val) {
 				this.calculateEMI();
+				this.$cookies.set('interest_type', val);
+			},
+			loan_range_step: function(val) {
+				this.$cookies.set('loan_range_step', val);
 			}
 		},
 		methods: {

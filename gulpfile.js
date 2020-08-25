@@ -3,7 +3,8 @@ function defaultTask(cb) {
     const postcss = require('gulp-postcss');
     const gulp = require('gulp');
     var csso = require('gulp-csso');
-    const purgecss = require('gulp-purgecss')
+    const purgecss = require('gulp-purgecss');
+    
 
     return gulp.src('css/main.css')
     // ...
