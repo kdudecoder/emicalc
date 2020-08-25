@@ -27,38 +27,38 @@
 	.range-slider__range::-webkit-slider-thumb {
 		-webkit-appearance: none;
 		appearance: none;
-		width: 20px;
-		height: 20px;
+		width: 24px;
+		height: 24px;
 		border-radius: 50%;
-		background: #2c3e50;
+		background: #4a5568;
 		cursor: pointer;
 		-webkit-transition: background .15s ease-in-out;
 		transition: background .15s ease-in-out;
 	}
 	.range-slider__range::-webkit-slider-thumb:hover {
-		background: #1abc9c;
+		background: #68d391;
 	}
 	.range-slider__range:active::-webkit-slider-thumb {
-		background: #1abc9c;
+		background: #68d391;
 	}
 	.range-slider__range::-moz-range-thumb {
-		width: 20px;
-		height: 20px;
+		width: 24px;
+		height: 24px;
 		border: 0;
 		border-radius: 50%;
-		background: #2c3e50;
+		background: #4a5568;
 		cursor: pointer;
 		-moz-transition: background .15s ease-in-out;
 		transition: background .15s ease-in-out;
 	}
 	.range-slider__range::-moz-range-thumb:hover {
-		background: #1abc9c;
+		background: #68d391;
 	}
 	.range-slider__range:active::-moz-range-thumb {
-		background: #1abc9c;
+		background: #68d391;
 	}
 	.range-slider__range:focus::-webkit-slider-thumb {
-		box-shadow: 0 0 0 3px #fff, 0 0 0 6px #1abc9c;
+		box-shadow: 0 0 0 3px #fff, 0 0 0 6px #68d391;
 	}
 
 	::-moz-range-track {
@@ -72,7 +72,7 @@
 	}
 
 	.active {
-		background: #00afd7;	
+		background: #4a5568;	
 		color: #fff;	
 	}
 
@@ -111,10 +111,10 @@
 				</div>
 				<p class="mt-4 mb-2 text-xs">Range Steps:</p>
 				<div class="grid xs:grid-cols-2 sm:grid-cols-4 gap-2 text-xs">					
-					<div class="col-span-1 bg-gray-300 text-center p-2 rounded shadow-sm cursor-pointer" @click="loan_range_step=1000;loan_amount=1000;min=1000;max=100000" :class="{active:loan_range_step==1000}">One <br>Thousand</div>
-					<div class="col-span-1 bg-gray-300 text-center p-2 rounded shadow-sm cursor-pointer" @click="loan_range_step=10000;loan_amount=10000;min=10000;max=1000000" :class="{active:loan_range_step==10000}">Ten <br>Thousand</div>
-					<div class="col-span-1 bg-gray-300 text-center p-2 rounded shadow-sm cursor-pointer" @click="loan_range_step=100000;loan_amount=100000;min=100000;max=10000000" :class="{active:loan_range_step==100000}">One <br>Lakh</div>
-					<div class="col-span-1 bg-gray-300 text-center p-2 rounded shadow-sm cursor-pointer" @click="loan_range_step=1000000;loan_amount=1000000;min=1000000;max=100000000" :class="{active:loan_range_step==1000000}">Ten <br>Lakh</div>
+					<div class="col-span-1 bg-gray-300 text-center p-2 rounded shadow cursor-pointer" @click="loan_range_step=1000;loan_amount=1000;min=1000;max=100000" :class="{active:loan_range_step==1000}">One <br>Thousand</div>
+					<div class="col-span-1 bg-gray-300 text-center p-2 rounded shadow cursor-pointer" @click="loan_range_step=10000;loan_amount=10000;min=10000;max=1000000" :class="{active:loan_range_step==10000}">Ten <br>Thousand</div>
+					<div class="col-span-1 bg-gray-300 text-center p-2 rounded shadow cursor-pointer" @click="loan_range_step=100000;loan_amount=100000;min=100000;max=10000000" :class="{active:loan_range_step==100000}">One <br>Lakh</div>
+					<div class="col-span-1 bg-gray-300 text-center p-2 rounded shadow cursor-pointer" @click="loan_range_step=1000000;loan_amount=1000000;min=1000000;max=100000000" :class="{active:loan_range_step==1000000}">Ten <br>Lakh</div>
 				</div>
 			</div>
 			<div class="grid grid-cols-2 gap-4">
@@ -125,26 +125,26 @@
 						<input id="tenure" class="range-slider__range" type="range" value="1" min="1" max="100" v-model="tenure">
 					</div>
 					<div class="flex items-center text-xs mt-4">					
-						<div class="w-3/5 bg-gray-300 text-center p-2 rounded shadow-sm cursor-pointer" @click="tenure_type=1" :class="{active:tenure_type==1}">Month</div>
-						<div class="w-2/5 ml-2 bg-gray-300 text-center p-2 rounded shadow-sm cursor-pointer"  @click="tenure_type=2" :class="{active:tenure_type==2}">Year</div>					
+						<div class="w-3/5 bg-gray-300 text-center p-2 rounded shadow cursor-pointer" @click="tenure_type=1" :class="{active:tenure_type==1}">Month</div>
+						<div class="w-2/5 ml-2 bg-gray-300 text-center p-2 rounded shadow cursor-pointer"  @click="tenure_type=2" :class="{active:tenure_type==2}">Year</div>					
 					</div>
 				</div>
 				<div class="col-span-1 bg-gray-200 rounded shadow py-4 px-2">
 					<p class="text-center uppercase text-xs font-semibold">Interest</p>
 					<div class="flex items-center justify-center">
-						<input type="number" name="" class="w-20 form-input bg-transparent border-transparent text-2xl font-bold text-center cursor-pointer px-0" v-model="interest"><p class="-ml-2">% p.a</p>
+						<input type="number" step="0.01" name="" class="w-20 form-input bg-transparent border-transparent text-2xl font-bold text-center cursor-pointer px-0" v-model="interest"><p class="-ml-2">% p.a</p>
 					</div>
 					<div class="range-slider px-2">
 						<input id="interest" class="range-slider__range" type="range" value="12" min="1" max="365" v-model="interest">
 					</div>
 					<div class="flex items-center text-xs mt-4">					
-						<div class="w-3/5 bg-gray-300 text-center p-2 rounded shadow-sm cursor-pointer" @click="interest_type=1" :class="{active:interest_type==1}">Reducing</div>
-						<div class="w-2/5 ml-2 bg-gray-300 text-center p-2 rounded shadow-sm cursor-pointer" @click="interest_type=2" :class="{active:interest_type==2}">Flat</div>
+						<div class="w-3/5 bg-gray-300 text-center p-2 rounded shadow cursor-pointer" @click="interest_type=1" :class="{active:interest_type==1}">Reducing</div>
+						<div class="w-2/5 ml-2 bg-gray-300 text-center p-2 rounded shadow cursor-pointer" @click="interest_type=2" :class="{active:interest_type==2}">Flat</div>
 					</div>
 				</div>
 			</div>			
 		</div>
-		<p class="text-xs text-center py-2 text-white">&copy; 2020. Kannan Kandappan</p>
+		<p class="px-4 text-xs text-center py-2 text-white md:text-left">&copy; 2020. Kannan Kandappan</p>
 	</div>
 
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
