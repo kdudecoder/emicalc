@@ -71,30 +71,45 @@
 		background: #00afd7;	
 		color: #fff;	
 	}
+
+	/* Chrome, Safari, Edge, Opera */
+	input::-webkit-outer-spin-button,
+	input::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+
+	/* Firefox */
+	input[type=number] {
+		-moz-appearance: textfield;
+	}
 	</style>
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+
 </head>
 <body class="font-sans">
 	<div class="bg-gray-900 min-h-screen" id="emicalc">
 		<div class="inset-x-0 top-0 p-4">
 			<div class="text-white mb-4">
 				<p class="font-bold text-xl">EMI</p>
-				<p class="text-3xl font-black text-green-400"><span class="font-medium">₹</span> {{ emi }} <span class="text-base">per month</span></p>
+				<p class="text-3xl font-black text-green-400"><span class="font-medium">₹</span> {{ emi | formatNumber }} <span class="text-base">per month</span></p>
 				<p class="text-sm text-white">for {{ tenure_in_months }} <span v-if="tenure_in_months == 1">month</span><span v-else>months</span></p>
 			</div>
 			<div class="text-white">
 				<p class="font-bold text-xl">Total Interest that you'll pay</p>
-				<p class="text-3xl font-black text-green-400"><span class="font-medium">₹</span> {{ total_interest }}</p>
+				<p class="text-3xl font-black text-green-400"><span class="font-medium">₹</span> {{ total_interest | formatNumber }}</p>
 			</div>
 		</div>
 		<div class="inset-x-0 bottom-0 max-w-md w-full px-4 pb-4">			
 			<div class="bg-gray-200 rounded shadow py-4 px-2 mb-4">
 				<p class="text-center uppercase text-xs font-semibold">Loan Amount</p>
-				<input type="number" name="" class="form-input bg-transparent w-full border-transparent text-2xl font-bold text-center" v-model="loan_amount">
+				<input name="" class="form-input bg-transparent w-full border-transparent text-2xl font-bold text-center" v-model="loan_amount">
 				<div class="range-slider px-2">
 					<input id="loan_amount" :step="loan_range_step" class="range-slider__range" type="range"  v-bind:min="min" v-bind:max="max" v-model="loan_amount">
 				</div>
-				<div class="grid xs:grid-cols-2 sm:grid-cols-4 gap-2 text-xs mt-4">					
+				<p class="mt-4 mb-2 text-xs">Range Steps:</p>
+				<div class="grid xs:grid-cols-2 sm:grid-cols-4 gap-2 text-xs">					
 					<div class="col-span-1 bg-gray-300 text-center p-2 rounded shadow-sm cursor-pointer" @click="loan_range_step=1000;loan_amount=1000;min=1000;max=100000" :class="{active:loan_range_step==1000}">One <br>Thousand</div>
 					<div class="col-span-1 bg-gray-300 text-center p-2 rounded shadow-sm cursor-pointer" @click="loan_range_step=10000;loan_amount=10000;min=10000;max=1000000" :class="{active:loan_range_step==10000}">Ten <br>Thousand</div>
 					<div class="col-span-1 bg-gray-300 text-center p-2 rounded shadow-sm cursor-pointer" @click="loan_range_step=100000;loan_amount=100000;min=100000;max=10000000" :class="{active:loan_range_step==100000}">One <br>Lakh</div>
@@ -133,11 +148,19 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/rangeslider.js/2.3.3/rangeslider.min.js"></script>
 	
 	<script type="text/javascript">
+	
+	var myNumeral = numeral(1000);
+
+	Vue.filter("formatNumber", function (value) {
+		return numeral(value).format("0,00,000"); 
+	});
+
 	new Vue({
 		el: '#emicalc',
 		data: {
 			loan_amount: 1000,
 			loan_range_step:1000,
+			loan_input: 'text',
 			min: 1000,
 			max: 100000,
 			tenure_type: 2,
@@ -153,6 +176,7 @@
 		},
 		watch: {
 			loan_amount: function (val) {
+				//this.loan_amount = this.$options.filters.formatNumber(val);
 				this.calculateEMI();
 			},
 			tenure: function (val) {
