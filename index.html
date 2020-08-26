@@ -108,7 +108,7 @@
 				<p class="text-center uppercase text-xs font-black text-gray-800">Loan Amount</p>
 				<p class="text-xs text-gray-500 text-center mb-2">Click to Enter</p>
 				<input type="number" name="" class="w-full form-input bg-transparent border-transparent text-2xl font-bold text-center p-0" v-model="loan_amount">
-				<p class="text-xs text-center mb-2">{{ loan_amount | inWords }}</p>
+				<p class="text-xs text-center mb-2 text-gray-600">{{ loan_amount | inWords }}</p>
 				<div class="range-slider px-2 mt-4">
 					<input id="loan_amount" :step="loan_range_step" class="range-slider__range" type="range"  v-bind:min="min" v-bind:max="max" v-model="loan_amount">
 				</div>
@@ -127,7 +127,7 @@
 						<input type="number" name="" class="w-20 form-input bg-transparent border-transparent text-2xl font-bold text-center" v-model="tenure">
 						<!-- <div class="px-4 text-sm">{{ (tenure_type==1)?'month(s)':(tenure_type == 2)?'year(s)':'day(s)' }}</div> -->
 					</div>				
-					<div class="range-slider px-2">
+					<div class="range-slider px-2 mt-2">
 						<input id="tenure" class="range-slider__range" type="range" value="1" min="1" v-bind:max="max_tenure" v-model="tenure">
 					</div>
 					<div class="flex justify-center items-center text-xs mt-4">					
@@ -141,7 +141,7 @@
 					<div class="flex items-center justify-center">
 						<input type="number" step="0.01" name="" class="w-20 form-input bg-transparent border-transparent text-2xl font-bold text-center cursor-pointer px-0" v-model="interest"><p class="-ml-2">% p.a</p>
 					</div>
-					<div class="range-slider px-2">
+					<div class="range-slider px-2 mt-2">
 						<input id="interest" class="range-slider__range" type="range" value="12" min="1" max="365" v-model="interest">
 					</div>
 					<div class="flex items-center text-xs mt-4">					
