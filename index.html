@@ -96,7 +96,7 @@
 			<div class="text-white mb-4">
 				<p class="font-bold text-xl" v-if="tenure_type!=3">EMI</p><p class="font-bold text-xl" v-else>EDI</p>
 				<p class="text-3xl font-black text-green-400" v-cloak><span class="font-medium">₹</span> {{ emi | formatNumber }} <span class="text-base" v-if="tenure_type!=3">per month</span><span class="text-base" v-else>per day</span></p>
-				<p class="text-sm text-white" v-if="tenure_type!=3">for {{ tenure_in_months }} <span v-if="tenure_in_months == 1">month</span><span v-else>months</span></p><p class="text-sm text-white" v-else>for {{ tenure_in_months }} <span v-if="tenure_in_months == 1">day</span><span v-else>days</span></p>
+				<p class="text-sm text-white" v-if="tenure_type!=3" v-cloak>for {{ tenure_in_months }} <span v-if="tenure_in_months == 1">month</span><span v-else>months</span></p><p class="text-sm text-white" v-else v-cloak>for {{ tenure_in_months }} <span v-if="tenure_in_months == 1">day</span><span v-else>days</span></p>
 			</div>
 			<div class="text-white">
 				<p class="font-bold text-xl">Total Interest that you'll pay</p>
