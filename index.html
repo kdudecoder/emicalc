@@ -177,7 +177,7 @@
 				min: 100000,
 				max: 1000000,
 				tenure_type: this.$cookies.isKey('tenure_type')?this.$cookies.get('tenure_type'):2,
-				max_tenure: (this.tenure_type == 1)?360:30,
+				max_tenure: (this.tenure_type == 1)?360:(this.tenure_type == 2)?30:90,
 				interest_type: this.$cookies.isKey('interest_type')?this.$cookies.get('interest_type'):1,
 				interest: this.$cookies.isKey('interest')?this.$cookies.get('interest'):12,
 				tenure: this.$cookies.isKey('tenure')?this.$cookies.get('tenure'):1,
